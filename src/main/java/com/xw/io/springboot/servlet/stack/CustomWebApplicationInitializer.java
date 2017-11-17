@@ -21,7 +21,9 @@ import java.io.File;
  * How to using embeded tomcat and SpringMVC to create custom web application??? This is a question!!!
  * Learn SpringMVC, tomcat, Jetty.
  */
-public class CustomWebApplicationInitializer implements WebApplicationInitializer {
+public class CustomWebApplicationInitializer
+        implements WebApplicationInitializer
+{
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         //load spring web application configuration
@@ -32,33 +34,8 @@ public class CustomWebApplicationInitializer implements WebApplicationInitialize
         //create DispatcherServlet
         DispatcherServlet dispatcherServlet = new DispatcherServlet(annotationConfigWebApplicationContext);
 
-        ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispacher", dispatcherServlet);
+        ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", dispatcherServlet);
         dynamic.setLoadOnStartup(1);
         dynamic.addMapping("/app/*");
-
-
-    }
-
-    public static void main(String... args) throws Exception {
-        String webappDirLocation = "";
-        Tomcat tomcat = new Tomcat();
-
-        //The port that we should run on can be set into an environment variable
-        //Look for that variable and default to 8080 if it isn't there.
-        String webPort = System.getenv("PORT");
-        if(webPort == null || webPort.isEmpty()) {
-            webPort = "8080";
-        }
-
-        tomcat.setPort(Integer.valueOf(webPort));
-
-        tomcat.addWebapp("", new File(webappDirLocation).getAbsolutePath());
-        System.out.println(new File(webappDirLocation).getAbsoluteFile());
-
-        // Declare an alternative location for your "WEB-INF/classes" dir
-        // Servlet 3.0 annotation will work
-
-        tomcat.start();
-        tomcat.getServer().await();
     }
 }
