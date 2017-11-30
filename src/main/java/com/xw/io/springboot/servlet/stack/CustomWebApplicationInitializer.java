@@ -8,6 +8,7 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -28,14 +29,17 @@ public class CustomWebApplicationInitializer
     public void onStartup(ServletContext servletContext) throws ServletException {
         //load spring web application configuration
         AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext();
+        //here...
+        annotationConfigWebApplicationContext.setServletContext(servletContext);
         annotationConfigWebApplicationContext.scan("com.xw.io.springboot.servlet.stack.config");
         annotationConfigWebApplicationContext.refresh();
+
 
         //create DispatcherServlet
         DispatcherServlet dispatcherServlet = new DispatcherServlet(annotationConfigWebApplicationContext);
 
         ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", dispatcherServlet);
         dynamic.setLoadOnStartup(1);
-        dynamic.addMapping("/app/*");
+        dynamic.addMapping("/");
     }
 }
