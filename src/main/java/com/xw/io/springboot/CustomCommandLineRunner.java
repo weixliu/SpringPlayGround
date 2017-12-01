@@ -1,6 +1,7 @@
 package com.xw.io.springboot;
 
 import com.xw.io.springboot.configuration.PropertiesConfiguration;
+import com.xw.io.springboot.service.SS;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +23,10 @@ public class CustomCommandLineRunner implements CommandLineRunner {
     @Setter
     private PropertiesConfiguration propertiesConfiguration;
 
+    @Autowired
+    @Setter
+    private SS ss;
+
     @Override
     public void run(String... strings) throws Exception {
         System.out.println("=========================== CustomCommandLineRunner ===========================");
@@ -29,5 +34,6 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         System.out.println("=========================== " + environment.getProperty("logging.pattern.console") + " ===============================");
         System.out.println("=========================== " + propertiesConfiguration.getEasyStr() + " ===============================");
         System.out.println("=========================== " + CONSOLE_LOG_PATTERN + " ===============================");
+        ss.say();
     }
 }

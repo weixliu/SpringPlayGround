@@ -6,6 +6,10 @@
         <constructor-arg index="0" value="xw"/>
     </bean>
 
+    <bean id="ssBean" class="com.xw.io.springboot.service.SS">
+        <!--<property name="iss" value="1"/>-->
+    </bean>
+
     <!--Seems that springboot auto-detected this dataSource bean-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 基本属性 url，user，password -->
