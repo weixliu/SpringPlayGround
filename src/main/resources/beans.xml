@@ -10,6 +10,11 @@
         <!--<property name="iss" value="1"/>-->
     </bean>
 
+    <bean id="sayName" class="com.xw.io.springboot.beans.ConstructorInject"></bean>
+    <bean id="sayNameParams" class="com.xw.io.springboot.beans.ConstructorInject">
+        <constructor-arg name="name" value="xw"/>
+    </bean>
+
     <!--Seems that springboot auto-detected this dataSource bean-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 基本属性 url，user，password -->

@@ -1,9 +1,11 @@
 package com.xw.io.springboot;
 
+import com.xw.io.springboot.beans.ConstructorInject;
 import com.xw.io.springboot.configuration.PropertiesConfiguration;
 import com.xw.io.springboot.service.SS;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,16 @@ public class CustomCommandLineRunner implements CommandLineRunner {
     @Setter
     private SS ss;
 
+    @Autowired()
+    @Setter
+    @Qualifier(value = "sayName")
+    private ConstructorInject constructorInject;
+
+    @Autowired()
+    @Setter
+    @Qualifier(value = "sayNameParams")
+    private ConstructorInject constructorInjectParams;
+
     @Override
     public void run(String... strings) throws Exception {
         System.out.println("=========================== CustomCommandLineRunner ===========================");
@@ -35,5 +47,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         System.out.println("=========================== " + propertiesConfiguration.getEasyStr() + " ===============================");
         System.out.println("=========================== " + CONSOLE_LOG_PATTERN + " ===============================");
         ss.say();
+        constructorInject.sayName();
+        constructorInjectParams.sayName();
     }
 }

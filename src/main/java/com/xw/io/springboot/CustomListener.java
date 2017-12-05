@@ -4,6 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.ApplicationListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by xiaowei.liu on 10/11/2017.
  */
@@ -68,5 +72,15 @@ public class CustomListener {
         public void onApplicationEvent(ApplicationFailedEvent applicationFailedEvent) {
             log.info(applicationFailedEvent.getClass().getSimpleName() + " is starting" + "==================See Me=================");
         }
+    }
+
+    public static void reLinkedList(List<String> lst) {
+        lst = new ArrayList<>();
+    }
+
+    public static void main(String... args) {
+        List<String> lst = Collections.singletonList("String");
+        reLinkedList(lst);
+        System.out.println(lst.size());
     }
 }
